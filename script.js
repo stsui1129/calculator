@@ -54,36 +54,38 @@ function divide(num1, num2) {
 
 function updateDisplay() {
   if (displayValue.toString().length > 12) {
-    displayValue = Number(displayValue.toString().slice(0, 12));
+    displayValue = Number(displayValue.toString().slice(0, 12)); //sets max digits to 12
   }
-  display.textContent = displayValue;
+  display.innerText = displayValue;
 }
 
 function inputNum(num) {
+  if (displayValue === "0") { //stops calculator from displaying 0000000 if 0 is pressed repeatedly
+    displayValue = "";
+  }
   displayValue += num;
   updateDisplay();
 }
 
 numberButtons.forEach(button => {
   button.addEventListener('click', e => {
-    inputNum(e.target.textContent);
+    inputNum(e.target.innerText);
   });
 });
 
 operatorButtons.forEach(button => {
   button.addEventListener('click', e => {
-      if (firstOperand != null && operator != null) {
-        secondOperand = parseFloat(displayValue);
-        result = operate(operator, firstOperand, secondOperand);
-        displayValue = result;
-        firstOperand = result;
+      if (firstOperand != null && operator != null) { //firstOperand and operator selected
+        secondOperand = parseFloat(displayValue); console.log(secondOperand);
+        operate(operator, firstOperand, secondOperand);
+        firstOperand = displayValue; console.log(firstOperand);
         secondOperand = null;
         operator = e.target.innerText;
-        displayValue = ""
+        displayValue = ""; //this resets displayValue so secondOperand doesn't concatenate to firstOperand
       }
-      else {
-        operator = e.target.innerText;
+      else { //no operator selected yet
         firstOperand = parseFloat(displayValue);
+        operator = e.target.innerText;
         displayValue = ""; //this resets displayValue so secondOperand doesn't concatenate to firstOperand
       }
   });
@@ -99,8 +101,7 @@ function inputEquals() {
   }
   else {
   secondOperand = parseFloat(displayValue);
-  result = operate(operator, firstOperand, secondOperand);
-  displayValue = result;
+  operate(operator, firstOperand, secondOperand);
   secondOperand = null;
   operator = null;
   }
@@ -134,8 +135,8 @@ decimalButton.addEventListener('click', e => {
 });
 
  function addDecimal() {
-  if (!displayValue.toString().includes(".")) {
-    displayValue += ".";
+  if (!displayValue.toString().includes(".")) { // ! means negation
+    displayValue += "."; // if displayValue does not include ., then concatenate .
     updateDisplay();
   }
 }

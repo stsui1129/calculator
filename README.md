@@ -10,7 +10,14 @@ The second operand was concatenating to the first operand - Fixed by adding disp
 
 Could not add 0 after a decimal point - deleted displayValue = Number(displayValue); from function inputNum, as this was converting 1.0 to 1, 1.20 to 1.2 etc.
 
-The calculator had issues with storing firstOperand after an operator had already been pressed, causing problems with returning undefined/NaN after pressing an operator button a second time.
+The calculator had issues with storing firstOperand after an operation has already been done, causing problems with future operations. This was fixed by altering the code below although I don't fully quite understand it.
+
+result = operate(operator, firstOperand, secondOperand);
+displayValue = result;
+firstOperand = result;
+
+operate(operator, firstOperand, secondOperand);
+firstOperand = displayValue;
 
 https://stsui1129.github.io/calculator/
 
