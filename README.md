@@ -10,7 +10,7 @@ The second operand was concatenating to the first operand - fixed by adding disp
 
 Could not add 0 after a decimal point - deleted displayValue = Number(displayValue); from function inputNum, as this was converting 1.0 to 1, 1.20 to 1.2 etc.
 
-The calculator had issues with storing firstOperand after an operation has already been done, causing problems with future operations. This was fixed by altering the code below although I don't fully quite understand why.
+The calculator had issues with storing firstOperand after an operation has already been done, causing problems with future operations. This was fixed by altering the code below although I don't fully quite understand why. It may be because my operate function does not return any value, so if I set result to it, result would be undefined?
 
 result = operate(operator, firstOperand, secondOperand);
 displayValue = result;
